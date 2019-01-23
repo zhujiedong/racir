@@ -2,10 +2,9 @@
 #'
 #' \code{racircal} Corrects your RACiR data files based on a calibration file. Produces diagnostic graphs of A vs. Ci for quality control. Output includes a data frame in the global environment "corrected_data" and a csv file of the form "datafile.csv".
 #'
-#' @inheritParams racircalcheck
-#' @param datafile Name of the data file to be corrected
-#' @param skiplines A number specifying the number of header lines to skip.
-#'
+#' @inheritParams racircheck
+#' @param df_empty data measured without the leaf
+#' @param df_leaf data measured with the leaf
 #' @return racircal returns a data frame with corrected RACiR data
 #' @importFrom utils write.csv
 #' @importFrom utils read.delim
@@ -17,21 +16,14 @@
 #' @importFrom graphics plot
 #' @export
 #'
-racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype){
-  # Load calibration data -----------------------------------
-  filetype <- ifelse(missing(filetype) == TRUE, 6800, filetype)
-  skiplines <- ifelse(missing(skiplines) == TRUE, 53, skiplines)
-  # Load data -------------------------------------------------
-  ifelse(filetype == 6800, cal <- read_6800(calfile, skiplines),
-         ifelse(filetype == 'csv', cal <- read.csv(calfile),
-                ifelse(filetype == 'dataframe', cal <- calfile,
-                       "Error: filetype not recognized")))
+racircal <- function(df_empty, df_leaf, mincut, maxcut){
 
   # Assign cutoffs ------------------------------------------
-  mincut <- ifelse(missing(mincut) == TRUE, min(cal$CO2_r), mincut)
-  maxcut <- ifelse(missing(maxcut) == TRUE, max(cal$CO2_r), maxcut)
-  cal <- cal[cal$CO2_r > mincut, ]
-  cal <- cal[cal$CO2_r < maxcut, ]
+  if(missing(mincut)|missing(maxcut)) {
+    stop("mincut or maxcut is necessary for racir")
+  }
+
+ force(cal <- df_empty[df_empty$CO2_r > mincut & df_empty$CO2_r < maxcut, ])
 
   # Fit polynomials to calibration curve --------------------
   cal1st <- lm(A ~ CO2_r, data = cal)
@@ -49,34 +41,21 @@ racircal <- function(calfile, mincut, maxcut, datafile, skiplines, filetype){
   maxcal <- max(cal$CO2_r)
   mincal <- min(cal$CO2_r)
 
-  # Read leaf data file -------------------------------------
-  ifelse(filetype == 6800, id <- read_6800(datafile, skiplines),
-         ifelse(filetype == 'csv', id <- read.csv(datafile),
-                ifelse(filetype == 'dataframe', id <- datafile,
-                       "Error: filetype not recognized")))
-
   # Restrict data to calibration range ----------------------
-  id <- id[id$CO2_r > mincal, ]
-  id <- id[id$CO2_r < maxcal, ]
+  id <- force(df_leaf[df_leaf$CO2_r > mincal & df_leaf$CO2_r < maxcal, ])
 
   # Correct leaf data ---------------------------------------
-  ifelse(best == "cal5th", id$Acor <- id$A - predict(cal5th, id),
-         ifelse(best == "cal4th", id$Acor <- id$A - predict(cal4th, id),
-         ifelse(best == "cal3rd", id$Acor <- id$A - predict(cal3rd, id),
-         ifelse(best == "cal2nd", id$Acor <- id$A - predict(cal2nd, id),
-            id$Acor <- id$A - predict(cal1st, id)))))
-  id$Cicor <- ( ( (id$gtc - id$E / 2) * id$Ca - id$Acor) /
+  ifelse(best == "cal5th", id$A <- id$A - predict(cal5th, id),
+         ifelse(best == "cal4th", id$A <- id$A - predict(cal4th, id),
+         ifelse(best == "cal3rd", id$A <- id$A - predict(cal3rd, id),
+         ifelse(best == "cal2nd", id$A <- id$A - predict(cal2nd, id),
+            id$A <- id$A - predict(cal1st, id)))))
+
+  id$Ci <- ( ( (id$gtc - id$E / 2) * id$Ca - id$A) /
                   (id$gtc + id$E / 2))
 
-  # Plot corrected leaf data --------------------------------
-  plot(Acor ~ Cicor, data = id)
+# make sure only the measured data are left. ------------------------------
+  with_leaf <-id[which(id$obs>0), ]
+  with_leaf
 
-  # Add ID label to file ------------------------------------
-  id$ID <- rep(datafile, length(id$obs))
-
-  # Remove columns filled with NA ---------------------------
-  id1 <- id[, unlist(lapply(id, function(x) !all(is.na(x))))]
-
-  # Write data output to .csv -------------------------------
-  write.csv(id1, paste(datafile, ".csv", sep = ""))
 }

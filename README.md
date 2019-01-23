@@ -1,3 +1,14 @@
+this is the forked repo of [jstinzi/racir](https://github.com/jstinzi/racir), and revised the code for personal convenience. 
+
+# basic use:
+
+* fist find the outliers with `find_cut`
+
+* use `racircheck` to find the best fit for the corrected data (optional, but advised for checking the quality of the data)
+
+* use `racircal` to return the corrected data measured with leaf
+
+
 # The racir R package
 
 The goal of racir is to provide fast and easy analysis of rapid A/Ci response
@@ -9,27 +20,13 @@ RACiR is a trademark of LI-COR Biosciences, and used with permission.
 Please report bugs or suggest features to Dr. Joseph Ronald Stinziano at
 josephstinziano@gmail.com.
 
-##Contents
-*read_6800() reads in a tab-delimited LI-COR 6800 file.
-*racircalcheck() allows the user to run QAQC on the calibration RACiR data.
-*racircal() calibrates one RACiR leaf data file based on a calibration file.
-    Outputs a .csv file with the corrected leaf data.
-*racircalbatch() calibrates multiple RACiR leaf data files based on a single
-    calibration file. Outputs .csv files for each leaf data file.
-*compile_racir() compiles .csv files generated from racircal() or
-    racircalbatch() into a single .csv file.
-    
-##Notes & Help
-For use on rapid A/Ci response data from other instruments, source code
-modification is needed. Please contact Dr. Joseph R. Stinziano for help.
-
 ## Installation
 
 To install the development version, use the following commands. Windows users
 must have Rtools installed.
 
 library(devtools)
-install_github("jstinzi/racir")
+install_github("zhujiedong/racir")
 
 ##License
 

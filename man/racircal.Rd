@@ -4,20 +4,16 @@
 \alias{racircal}
 \title{Corrects rapid A/Ci response (RACiR) data from leaves using empty chamber data.}
 \usage{
-racircal(calfile, mincut, maxcut, datafile, skiplines, filetype)
+racircal(df_empty, df_leaf, mincut, maxcut)
 }
 \arguments{
-\item{calfile}{Calibration (empty chamber) rapid A/Ci response file}
+\item{df_empty}{data measured without the leaf}
+
+\item{df_leaf}{data measured with the leaf}
 
 \item{mincut}{Minimum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the initial chamber mixing. Default value is set to the minimum COR_r value.}
 
 \item{maxcut}{Maximum cutoff value for reference CO2 (CO2_r). Used to cut out the data from the end of the response. Not needed in all cases. Default value is set to the maximum COR_r value.}
-
-\item{datafile}{Name of the data file to be corrected}
-
-\item{skiplines}{A number specifying the number of header lines to skip.}
-
-\item{filetype}{Specifies the filetype for the data (6800, csv, or dataframe).}
 }
 \value{
 racircal returns a data frame with corrected RACiR data
