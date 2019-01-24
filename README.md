@@ -1,5 +1,6 @@
 this is the forked repo of [jstinzi/racir](https://github.com/jstinzi/racir), and revised the code for personal convenience. 
-for Chinese readers, please refer to [](https://zhujiedong.github.io/photoanalysis/)
+for Chinese readers, please refer to [photoanalysis](https://zhujiedong.github.io/photoanalysis/) for details.
+
 # basic use:
 
 * fist find the outliers with `find_cut`
@@ -16,9 +17,6 @@ The goal of racir is to provide fast and easy analysis of rapid A/Ci response
 (LI-COR Biosciences, Lincoln, NB). 
 
 RACiR is a trademark of LI-COR Biosciences, and used with permission.
-
-Please report bugs or suggest features to Dr. Joseph Ronald Stinziano at
-josephstinziano@gmail.com.
 
 ## Installation
 
