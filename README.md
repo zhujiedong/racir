@@ -1,5 +1,5 @@
 this is the forked repo of [jstinzi/racir](https://github.com/jstinzi/racir), and revised the code for personal convenience. 
-
+for Chinese readers, please refer to [](https://zhujiedong.github.io/photoanalysis/)
 # basic use:
 
 * fist find the outliers with `find_cut`
