@@ -1,6 +1,10 @@
 this is the forked repo of [jstinzi/racir](https://github.com/jstinzi/racir), and revised the code for personal convenience. 
 for Chinese readers, please refer to [photoanalysis](https://zhujiedong.github.io/photoanalysis/) for details.
 
+add another method by revised the method from [ManuelLamothe
+/
+RapidACi](https://github.com/ManuelLamothe/RapidACi)
+
 # basic use:
 
 * fist find the outliers with `find_cut`
