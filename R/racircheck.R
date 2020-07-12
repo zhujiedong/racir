@@ -10,17 +10,15 @@
 #' @importFrom graphics legend  lines plot
 #' @export
 #'
-#'
-#'
-racircheck <- function(df_empty, mincut, maxcut){
-
+racircheck <- function(df_empty, mincut, maxcut) {
   # Assign cutoffs ------------------------------------------
 
-  if(missing(mincut) || missing(maxcut)) {
-   stop("mincut or maxcut is necessary for racir")
- }
+  if (missing(mincut) || missing(maxcut)) {
+    stop("mincut or maxcut is necessary for racir")
+  }
 
-  force(cal <- df_empty[df_empty$CO2_r > mincut & df_empty$CO2_r < maxcut, ])
+  force(cal <-
+          df_empty[df_empty$CO2_r > mincut & df_empty$CO2_r < maxcut,])
 
   # Fit polynomials to calibration curve --------------------
   linear <- lm(A ~ CO2_r, data = cal)
@@ -46,10 +44,18 @@ racircheck <- function(df_empty, mincut, maxcut){
   lines(cal$CO2_r, predict3, col = "red")
   lines(cal$CO2_r, predict4, col = "yellow")
   lines(cal$CO2_r, predict5, col = "black")
-  legend("bottomright", title = "Polynomial",
-        legend = c("1st", "2nd", "3rd", "4th", "5th"),
-         col = c("green", "blue", "red", "yellow", "black"), lty = 1)
-  text(median(cal$CO2_r), max(cal$A), labels =
-         paste( best, "polynominal", "is the best"),
-       col = "blue")
+  legend(
+    "bottomright",
+    title = "Polynomial",
+    legend = c("1st", "2nd", "3rd", "4th", "5th"),
+    col = c("green", "blue", "red", "yellow", "black"),
+    lty = 1
+  )
+  text(
+    median(cal$CO2_r),
+    max(cal$A),
+    labels =
+      paste(best, "polynominal", "is the best"),
+    col = "blue"
+  )
 }
