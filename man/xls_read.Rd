@@ -4,7 +4,7 @@
 \alias{xls_read}
 \title{Reads files from the LI-6800}
 \usage{
-xls_read(path, start_row = 17, S = 6)
+xls_read(path, start_row = 17, S = NULL)
 }
 \arguments{
 \item{path}{path of your data.}
@@ -13,7 +13,7 @@ xls_read(path, start_row = 17, S = 6)
 
 \item{S}{recompute by providing diffferen leaf areas, if the area does not need to change
 , enter one single value of the  actual area, else, enter a vector of the same length
-with the measured data}
+with the measured data. The default NULL means you do not want to change the leaf area.}
 }
 \value{
 read_6800 imports a LI-6800 raw data file as a data frame

@@ -6,17 +6,16 @@
 #' @param start_row start of measured data
 #' @param S recompute by providing diffferen leaf areas, if the area does not need to change
 #' , enter one single value of the  actual area, else, enter a vector of the same length
-#' with the measured data
+#' with the measured data. The default NULL means you do not want to change the leaf area.
 #'
 #' @return read_6800 imports a LI-6800 raw data file as a data frame
 #' @export
 
-xls_read <- function(path, start_row = 17, S = 6) {
-
+xls_read <- function(path, start_row = 17, S = NULL) {
+  #Loading an Excel workbook. Both .xls and .xlsx file formats can be used.
   wb <- XLConnect::loadWorkbook(path)
-
-# read group name and header, without header, and paste0 them as names
-# to avoid repeated names such as time
+  # read group name and header, without header, and paste0 them as names
+  # to avoid repeated names such as time
   group_name <-
     XLConnect::readWorksheet(
       wb,
@@ -33,22 +32,30 @@ xls_read <- function(path, start_row = 17, S = 6) {
       endRow = start_row - 2,
       header = FALSE
     )
-  new_name <- paste0(group_name, "_", header_name)
+  if (is.null(S)) {
+    #reading worksheets of an Excel workbook
+    df <- XLConnect::readWorksheet(wb,
+                                   sheet = 1,
+                                   startRow = start_row,
+                                   header = FALSE)
+    names(df) <- header_name
+  } else{
+    new_name <- paste0(group_name, "_", header_name)
 
-  XLConnect::writeWorksheet(
-    wb,
-    data = S,
-    sheet = 1,
-    startRow = 17,
-    startCol = which(new_name == "Const_S"),
-    header = FALSE
-  )
+    XLConnect::writeWorksheet(
+      wb,
+      data = S,
+      sheet = 1,
+      startRow = 17,
+      startCol = which(new_name == "Const_S"),
+      header = FALSE
+    )
 
-  df <-  XLConnect::readWorksheet(wb,
-                      sheet = 1,
-                      startRow = 17,
-                      header = FALSE)
-  names(df) <- header_name
-
+    df <-  XLConnect::readWorksheet(wb,
+                                    sheet = 1,
+                                    startRow = 17,
+                                    header = FALSE)
+    names(df) <- header_name
+  }
   df
 }
