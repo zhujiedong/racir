@@ -16,14 +16,14 @@ xls_read <- function(path, start_row = 17, S = NULL) {
   wb <- XLConnect::loadWorkbook(path)
   # read group name and header, without header, and paste0 them as names
   # to avoid repeated names such as time
-  group_name <-
-    XLConnect::readWorksheet(
-      wb,
-      sheet = 1,
-      startRow = start_row - 3,
-      endRow = start_row - 3,
-      header = FALSE
-    )
+#  group_name <-
+#    XLConnect::readWorksheet(
+#      wb,
+#     sheet = 1,
+#      startRow = start_row - 3,
+#      endRow = start_row - 3,
+#      header = FALSE
+#    )
   header_name <-
     XLConnect::readWorksheet(
       wb,
@@ -40,20 +40,20 @@ xls_read <- function(path, start_row = 17, S = NULL) {
                                    header = FALSE)
     names(df) <- header_name
   } else{
-    new_name <- paste0(group_name, "_", header_name)
-
+#    new_name <- paste0(group_name, "_", header_name)
+    
     XLConnect::writeWorksheet(
       wb,
       data = S,
       sheet = 1,
-      startRow = 17,
-      startCol = which(new_name == "Const_S"),
+      startRow = start_row,
+      startCol = which(header_name == "S"),
       header = FALSE
     )
-
+    
     df <-  XLConnect::readWorksheet(wb,
                                     sheet = 1,
-                                    startRow = 17,
+                                    startRow = start_row,
                                     header = FALSE)
     names(df) <- header_name
   }
