@@ -1,5 +1,5 @@
 #' check the delta max of diff(A) for the leaf data
-#' @param empty_df the measurement data frame of the chamber with leaf
+#' @param leaf_df the measurement data frame of the chamber with leaf
 #' @param delta_max the filter to discard unstable values of racir data
 #' @import graphics
 #' @export

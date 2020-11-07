@@ -7,9 +7,9 @@
 check_delta(leaf_df, delta_max = 0.2)
 }
 \arguments{
-\item{delta_max}{the filter to discard unstable values of racir data}
+\item{leaf_df}{the measurement data frame of the chamber with leaf}
 
-\item{empty_df}{the measurement data frame of the chamber with leaf}
+\item{delta_max}{the filter to discard unstable values of racir data}
 }
 \description{
 check the delta max of diff(A) for the leaf data
