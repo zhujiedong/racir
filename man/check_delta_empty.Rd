@@ -4,12 +4,16 @@
 \alias{check_delta_empty}
 \title{check the delta max of diff(A) for the empty chamber data}
 \usage{
-check_delta_empty(empty_df, delta_max = 0.05)
+check_delta_empty(df, delta_max = 0.05, upper_A = 2, lower_A = -2)
 }
 \arguments{
-\item{empty_df}{the measurement data frame of empty chamber}
+\item{df}{the measurement data frame of empty chamber}
 
 \item{delta_max}{the filter to discard unstable values of racir data}
+
+\item{upper_A}{use to filter ucorrect A value (upper limit)}
+
+\item{lower_A}{use to filter ucorrect A value (lower limit)}
 }
 \description{
 check the delta max of diff(A) for the empty chamber data

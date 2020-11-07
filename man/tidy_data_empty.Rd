@@ -4,12 +4,16 @@
 \alias{tidy_data_empty}
 \title{Tidy the racir data by use the delta of diff for A}
 \usage{
-tidy_data_empty(df, delta_max = 0.05)
+tidy_data_empty(df, delta_max = 0.05, upper_A = 2, lower_A = -2)
 }
 \arguments{
 \item{df}{the dataframe of the racir data}
 
 \item{delta_max}{the filter to discard unstable values of racir data}
+
+\item{upper_A}{use to filter ucorrect A value (upper limit)}
+
+\item{lower_A}{use to filter ucorrect A value (lower limit)}
 }
 \description{
 Tidy the racir data by use the delta of diff for A

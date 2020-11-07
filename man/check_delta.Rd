@@ -4,12 +4,16 @@
 \alias{check_delta}
 \title{check the delta max of diff(A) for the leaf data}
 \usage{
-check_delta(leaf_df, delta_max = 0.2)
+check_delta(df, delta_max = 0.2, upper_A = 2, lower_A = -2)
 }
 \arguments{
-\item{leaf_df}{the measurement data frame of the chamber with leaf}
+\item{df}{the measurement data frame of the chamber with leaf}
 
 \item{delta_max}{the filter to discard unstable values of racir data}
+
+\item{upper_A}{use to filter ucorrect A value (upper limit)}
+
+\item{lower_A}{use to filter ucorrect A value (lower limit)}
 }
 \description{
 check the delta max of diff(A) for the leaf data
