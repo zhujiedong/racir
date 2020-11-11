@@ -4,7 +4,13 @@
 \alias{tidy_data_empty}
 \title{Tidy the racir data by use the delta of diff for A}
 \usage{
-tidy_data_empty(df, delta_max = 0.05, upper_A = 2, lower_A = -2)
+tidy_data_empty(
+  df,
+  delta_max = 0.2,
+  upper_A = 2,
+  lower_A = -2,
+  reverse = FALSE
+)
 }
 \arguments{
 \item{df}{the dataframe of the racir data}
@@ -14,6 +20,9 @@ tidy_data_empty(df, delta_max = 0.05, upper_A = 2, lower_A = -2)
 \item{upper_A}{use to filter ucorrect A value (upper limit)}
 
 \item{lower_A}{use to filter ucorrect A value (lower limit)}
+
+\item{reverse}{whether the co2R is from low to high, or else. default is
+low to high}
 }
 \description{
 Tidy the racir data by use the delta of diff for A

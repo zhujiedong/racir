@@ -4,7 +4,7 @@
 \alias{check_delta}
 \title{check the delta max of diff(A) for the leaf data}
 \usage{
-check_delta(df, delta_max = 0.2, upper_A = 2, lower_A = -2)
+check_delta(df, delta_max = 0.2, upper_A = 2, lower_A = -2, reverse = FALSE)
 }
 \arguments{
 \item{df}{the measurement data frame of the chamber with leaf}
@@ -14,6 +14,9 @@ check_delta(df, delta_max = 0.2, upper_A = 2, lower_A = -2)
 \item{upper_A}{use to filter ucorrect A value (upper limit)}
 
 \item{lower_A}{use to filter ucorrect A value (lower limit)}
+
+\item{reverse}{whether the co2R is from low to high, or else. default is
+low to high}
 }
 \description{
 check the delta max of diff(A) for the leaf data

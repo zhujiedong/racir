@@ -3,13 +3,16 @@
 #' @param delta_max the filter to discard unstable values of racir data
 #' @param upper_A use to filter ucorrect A value (upper limit)
 #' @param lower_A use to filter ucorrect A value (lower limit)
+#' @param reverse whether the co2R is from low to high, or else. default is
+#' low to high
 #' @import graphics
 #' @export
 check_delta <-
   function(df,
            delta_max = 0.2,
            upper_A = 2,
-           lower_A = -2) {
+           lower_A = -2,
+           reverse = FALSE) {
     op <- par(no.readonly = TRUE)
     tidy_data <- match.fun(tidy_data)
 #   df$diffa <- c(0, diff(leaf_df$A))
@@ -18,7 +21,8 @@ check_delta <-
         df,
         delta_max = delta_max,
         upper_A = upper_A,
-        lower_A = lower_A
+        lower_A = lower_A,
+        reverse = reverse
       )
     layout(matrix(1:2, 1, 2, byrow = TRUE))
     with(leaf_df, {
