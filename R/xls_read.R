@@ -41,7 +41,7 @@ xls_read <- function(path, start_row = 17, S = NULL) {
     names(df) <- header_name
   } else{
 #    new_name <- paste0(group_name, "_", header_name)
-    
+
     XLConnect::writeWorksheet(
       wb,
       data = S,
@@ -50,7 +50,8 @@ xls_read <- function(path, start_row = 17, S = NULL) {
       startCol = which(header_name == "S"),
       header = FALSE
     )
-    
+    XLConnect::setForceFormulaRecalculation(wb, sheet = 1, TRUE)
+
     df <-  XLConnect::readWorksheet(wb,
                                     sheet = 1,
                                     startRow = start_row,
